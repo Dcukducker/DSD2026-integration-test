@@ -1,0 +1,30 @@
+# Sub-module repositories (each has its own GitHub remote, do not commit here)
+DSD2026-app-windows/
+dsd2026-teamv2/
+project-main-web/
+v1-motion-standard-curves/
+
+# Environment files (keep .env.example only)
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts
+docs/*.aux
+docs/*.fdb_latexmk
+docs/*.fls
+docs/*.log
+docs/*.nav
+docs/*.out
+docs/*.snm
+docs/*.toc
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
