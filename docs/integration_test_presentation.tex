@@ -36,11 +36,11 @@
 \newcommand{\bug}[1]{\textcolor{bugred}{\textbf{#1}}}
 
 % ── Title ────────────────────────────────────────────────────────────
-\title[DSD 2026 集成测试]{肢体运动康复训练平台\\集成测试完整报告}
+\title[DSD 2026 Integration Test]{Limb Motion Training Platform\\\normalsize Integration Test Report}
 \subtitle{DSD 2025--2026 · UTAD $\times$ Jilin University}
-\author{集成测试组}
-\institute{四模块协同集成验证}
-\date{2026年6月9日}
+\author{S1 -- Derui Tang}
+\institute{4-Module Collaborative Integration Verification}
+\date{June 9, 2026}
 
 \begin{document}
 
@@ -50,23 +50,52 @@
 \begin{frame}[plain]
   \titlepage
   \begin{center}
-    \vspace{-0.5cm}
-    \textbf{\large 119 项测试 · 0 失败 · 100\% 通过率}
+
+    \vspace{0.8cm}
+    {\footnotesize GitHub Repository: \textcolor{blue}{\url{https://github.com/Dcukducker/DSD2026-integration-test}}}
   \end{center}
+\end{frame}
+
+% ============================================================================
+% Test Methodology
+% ============================================================================
+\begin{frame}{Test Methodology}
+  \begin{alertblock}{Core Testing Strategy}
+    \small
+    \begin{itemize}
+      \item \textbf{Integration:} Big-Bang — all modules integrated simultaneously and tested as a unified system
+      \item \textbf{Type:} Black-Box — verify external behavior via interfaces, not internal logic
+      \item \textbf{Focus:} Inter-module API connectivity \& data pipeline integrity over module internals
+      \item \textbf{Scope:} Cross-module HTTP APIs, data serialization/deserialization, end-to-end data flows
+    \end{itemize}
+  \end{alertblock}
+
+  \vspace{0.15cm}
+  \begin{block}{Code Version Notes}
+    \small
+    \begin{itemize}
+      \item Based on code submitted to each team's branch before \textbf{June 7, 2026}
+      \item Corresponds to \textbf{Phase 1 requirements} — core business processes \& basic interfaces
+      \item Code modified after June 7 is \textbf{not included} — development still in progress
+      \item Results reflect integration status as of June 7
+      \item Helped by LLM Agents for test script generation, debugging, and documentation
+    \end{itemize}
+    \vspace{0.15cm}
+  \end{block}
 \end{frame}
 
 % ============================================================================
 % OUTLINE
 % ============================================================================
-\begin{frame}{汇报提纲}
+\begin{frame}{Outline}
   \tableofcontents[hideallsubsections]
 \end{frame}
 
 % ============================================================================
-\section{项目背景与架构}
+\section{Project Background \& Architecture}
 % ============================================================================
 
-\begin{frame}{项目概况：4 模块分布式系统}
+\begin{frame}{Project Overview: 4-Module System}
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}
       \begin{table}[h]
@@ -74,24 +103,24 @@
         \rowcolors{2}{gray!10}{white}
         \begin{tabular}{lll}
           \toprule
-          \textbf{模块} & \textbf{技术栈} & \textbf{端口} \\
+          \textbf{Module} & \textbf{Tech Stack} & \textbf{Port} \\
           \midrule
           App (S1+S2+M1) & Python Flask & 5000 \\
           V2 Backend & Node.js Express & 3000 \\
           M2 Clinical Web & React+Vite & 5173 \\
-          V1 AI Engine & Python 批处理 & --- \\
+          V1 AI Engine & Python Batch & --- \\
           \bottomrule
         \end{tabular}
       \end{table}
     \end{column}
     \begin{column}{0.45\textwidth}
-      \begin{block}{关键规模指标}
+      \begin{block}{Key Scale Metrics}
         \begin{itemize}
-          \item V2 后端 \textbf{40+} REST 端点
-          \item 数据库 \textbf{10} 张表
-          \item 跨模块接口 \textbf{6} 层
-          \item 涉及 \textbf{60+} API 调用
-          \item 源码 \textbf{11} 处硬编码修复
+          \item V2 Backend \textbf{40+} REST endpoints
+          \item Database \textbf{10} tables
+          \item Cross-module interfaces \textbf{6} layers
+          \item Involving \textbf{60+} API calls
+          \item Source code \textbf{11} hardcoded fixes
         \end{itemize}
       \end{block}
     \end{column}
@@ -113,16 +142,16 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{集成前环境状态与阻塞项}
+\begin{frame}{Pre-Integration Environment \& Blockers}
   \begin{columns}[T]
     \begin{column}{0.45\textwidth}
-      \textbf{各模块分支}
+      \textbf{Branch per Module}
       \begin{table}[h]
         \tiny
         \rowcolors{2}{gray!10}{white}
         \begin{tabular}{ll}
           \toprule
-          \textbf{仓库} & \textbf{分支} \\
+          \textbf{Repository} & \textbf{Branch} \\
           \midrule
           DSD2026-app-windows & feature/recording-upload-cancel \\
           dsd2026-teamv2 & joaolima \\
@@ -133,122 +162,122 @@
       \end{table}
     \end{column}
     \begin{column}{0.55\textwidth}
-      \begin{alertblock}{发现的集成阻塞项}
+      \begin{alertblock}{Integration Blockers Discovered}
         \begin{enumerate}
-          \item \textbf{11 处}硬编码远程 URL \texttt{113.44.220.94}
-          \item M2 临床 Web 全量 Mock 数据
-          \item 无统一环境配置机制
-          \item 无集成测试脚本
-          \item 无自动化启动脚本
+          \item \textbf{11 instances} of hardcoded remote URL \texttt{113.44.220.94}
+          \item M2 Clinical Web fully mocked data
+          \item No unified environment configuration mechanism
+          \item No integration test scripts
+          \item No automated startup scripts
         \end{enumerate}
       \end{alertblock}
     \end{column}
   \end{columns}
 
-  \begin{block}{阻塞项修复量}
+  \begin{block}{Blocker Resolution Effort}
     \begin{itemize}
-      \item 修改源文件 \textbf{11 个}（Python×5 + TypeScript×6+1 新建）
-      \item 新建配置/脚本 \textbf{7 个}（.env×3 + 脚本×4，后扩展至 9 个）
-      \item 全部改为环境变量，默认指向 \texttt{localhost:3000}
+      \item Modified source files: \textbf{11} (Python×5 + TypeScript×6 + 1 new)
+      \item New config/script files: \textbf{7} (.env×3 + scripts×4, later expanded to 9)
+      \item All changed to environment variables, defaulting to \texttt{localhost:3000}
     \end{itemize}
   \end{block}
 \end{frame}
 
 % ============================================================================
-\section{测试体系设计}
+\section{Test System Design}
 % ============================================================================
 
-\begin{frame}{测试分层架构：6 层覆盖}
+\begin{frame}{Test Architecture: 6-Layer Coverage}
   \begin{center}
     \begin{tikzpicture}[
-      layer/.style={rectangle,draw,rounded corners,minimum width=11.5cm,minimum height=0.65cm,align=center,font=\footnotesize}]
-      \node[layer,fill=blue!15] (A) {Layer A: 浏览器前端 $\leftrightarrow$ App Flask (M1 内部代理，20 routes)};
-      \node[layer,fill=blue!7,below=0.12cm of A] (B) {Layer B: App api\_client $\leftrightarrow$ V2 Backend (直连 REST，16 endpoints)};
-      \node[layer,fill=orange!15,below=0.12cm of B] (C) {Layer C: V1 AI Scripts $\leftrightarrow$ V2 Backend (数据获取+推荐生成，4 API calls)};
-      \node[layer,fill=purple!15,below=0.12cm of C] (D) {Layer D: M2 Services $\leftrightarrow$ V2 Backend (6 services，21 endpoints)};
-      \node[layer,fill=green!15,below=0.12cm of D] (E) {Layer E: 端到端全链路数据管道（6步完整数据流）};
-      \node[layer,fill=red!10,below=0.12cm of E] (F) {Layer F: 边界条件·错误处理·并发·压力·安全·空值};
+      layer/.style={rectangle,draw,rounded corners,minimum width=12.5cm,minimum height=0.62cm,align=center,font=\footnotesize}]
+      \node[layer,fill=blue!15] (A) {Layer A: Browser $\leftrightarrow$ App Flask (M1 proxy, 20 routes)};
+      \node[layer,fill=blue!7,below=0.10cm of A] (B) {Layer B: App api\_client $\leftrightarrow$ V2 Backend (direct REST, 16 endpoints)};
+      \node[layer,fill=orange!15,below=0.10cm of B] (C) {Layer C: V1 AI Scripts $\leftrightarrow$ V2 Backend (data retrieval + recommendations, 4 APIs)};
+      \node[layer,fill=purple!15,below=0.10cm of C] (D) {Layer D: M2 Services $\leftrightarrow$ V2 Backend (6 services, 21 endpoints)};
+      \node[layer,fill=green!15,below=0.10cm of D] (E) {Layer E: End-to-End Data Pipeline (6-step complete data flow)};
+      \node[layer,fill=red!10,below=0.10cm of E] (F) {Layer F: Boundary · Errors · Concurrency · Stress · Security · Null Safety};
     \end{tikzpicture}
   \end{center}
   \vspace{0.15cm}
-  \begin{block}{设计理念}
-    \footnotesize 自底向上逐层验证：API调用 $\rightarrow$ 点对点接口 $\rightarrow$ 完整链路 $\rightarrow$ 异常场景。\\
-    每层通过才进入下一层，全自动化运行，直接输出 PASS/FAIL。
+  \begin{block}{Design Philosophy}
+    \footnotesize Bottom-up layer-by-layer validation: API calls $\rightarrow$ point-to-point interfaces $\rightarrow$ complete pipelines $\rightarrow$ exception scenarios.\\
+    Each layer must pass before proceeding to the next; fully automated execution with direct PASS/FAIL output.
   \end{block}
 \end{frame}
 
-\begin{frame}{测试脚本矩阵：6 脚本 × 166 项}
+\begin{frame}{Test Script Matrix: 6 Scripts × 166 Items}
   \vspace{0.2cm}
   \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.4}
     \footnotesize
-    \begin{tabular}{p{3.2cm}p{2.8cm}p{1.5cm}p{1.8cm}p{2cm}}
+    \begin{tabular}{p{3.0cm}p{3.1cm}p{1.3cm}p{1.6cm}p{2.0cm}}
       \toprule
-      \textbf{脚本文件} & \textbf{测试类型} & \textbf{项数} & \textbf{耗时} & \textbf{结果} \\
+      \textbf{Script File} & \textbf{Test Type} & \textbf{Items} & \textbf{Duration} & \textbf{Result} \\
       \midrule
-      \texttt{smoke\_test.ps1} & 核心 API 快速连通 & 14 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
-      \texttt{integration\_test.ps1} & 6 层全接口覆盖 & 62 & $\sim$2 min & \cellcolor{green!15}100\% PASS \\
-      \texttt{pipeline\_test.ps1} & 3 用例数据通路 & 26 & $\sim$3 min & \cellcolor{green!15}100\% PASS \\
-      \texttt{scenario\_test.ps1} & 并发/压力/边界 & 17 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
-      \texttt{bug\_hunt.ps1} & 安全漏洞/缺陷探测 & 13 & $\sim$1 min & 发现 \bug{10 bug} \\
-      \texttt{null\_safety.ps1} & 空值/缺失字段安全 & 34 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
+      \texttt{smoke\_test.ps1} & Core API Quick Connectivity & 14 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
+      \texttt{integration\_test.ps1} & 6-Layer Full Interface Coverage & 62 & $\sim$2 min & \cellcolor{green!15}100\% PASS \\
+      \texttt{pipeline\_test.ps1} & 3 Use Case Data Pipelines & 26 & $\sim$3 min & \cellcolor{green!15}100\% PASS \\
+      \texttt{scenario\_test.ps1} & Concurrency/Stress/Boundary & 17 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
+      \texttt{bug\_hunt.ps1} & Security \& Defect Detection & 13 & $\sim$1 min & Found \bug{10 bugs} \\
+      \texttt{null\_safety.ps1} & Null/Missing Field Safety & 34 & $\sim$1 min & \cellcolor{green!15}100\% PASS \\
       \midrule
-      \textbf{合计} & \textbf{6 个测试脚本} & \textbf{166} & \textbf{$\sim$9 min} & \cellcolor{green!15}\textbf{100\%} \\
+      \textbf{Total} & \textbf{6 Test Scripts} & \textbf{166} & \textbf{$\sim$9 min} & \cellcolor{green!15}\textbf{100\%} \\
       \bottomrule
     \end{tabular}
   \end{table}
 
   \vspace{0.2cm}
-  \begin{block}{运行命令}
+  \begin{block}{Run Command}
     \centering
     \texttt{powershell -ExecutionPolicy Bypass -File scripts/<name>.ps1}
   \end{block}
 \end{frame}
 
 % ============================================================================
-\section{测试结果}
+\section{Test Results}
 % ============================================================================
 
-\begin{frame}{Layer A--B: App 端接口测试（31 项全通过）}
+\begin{frame}{Layers A--B: App Interfaces (31/31)}
   \begin{columns}[T]
     \begin{column}{0.5\textwidth}
-      \textbf{Layer A: 浏览器前端 $\leftrightarrow$ App Flask}
+      \textbf{Layer A: Browser Frontend $\leftrightarrow$ App Flask}
       \vspace{-0.2cm}
       \begin{table}[h]
         \tiny
         \rowcolors{2}{gray!8}{white}
         \begin{tabular}{p{2.2cm}l}
           \toprule
-          \textbf{测试} & \textbf{关键结果} \\
+          \textbf{Test} & \textbf{Key Result} \\
           \midrule
           A1 Web UI & \checkmark\ 200 \\
-          A2--A3 注册/登录代理 & \checkmark\ JWT 获取 \\
-          A4--A5 模式切换 & \checkmark\ simulator \\
-          A6 传感器配置 & \checkmark\ 400 空地址 \\
-          A7--A8 会话创建/启动 & \checkmark\ S2采集启动 \\
+          A2--A3 Register/Login proxy & \checkmark\ JWT obtained \\
+          A4--A5 Mode switch & \checkmark\ simulator \\
+          A6 Sensor config & \checkmark\ 400 empty address \\
+          A7--A8 Session create/start & \checkmark\ S2 capture started \\
           \rowcolor{blue!8}
-          A9 \textbf{实时数据读取} & sensorData=\textbf{200} \\
+          A9 \textbf{Real-time data read} & sensorData=\textbf{200} \\
           & targetAngles=\textbf{100} \\
-          A10--A11 录制启停 & \checkmark\ 198 samples \\
-          A12--A13 上传/停止 & \checkmark\ 2 batches \\
-          A14--A16 推荐/计划 & \checkmark\ 全部可查询 \\
+          A10--A11 Recording start/stop & \checkmark\ 198 samples \\
+          A12--A13 Upload/stop & \checkmark\ 2 batches \\
+          A14--A16 Recommend/Plan & \checkmark\ all queryable \\
           \bottomrule
         \end{tabular}
       \end{table}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \textbf{Layer B: App $\leftrightarrow$ V2 直连}
+      \textbf{Layer B: App $\leftrightarrow$ V2 Direct}
       \vspace{-0.2cm}
       \begin{table}[h]
         \tiny
         \rowcolors{2}{gray!8}{white}
         \begin{tabular}{p{2.8cm}l}
           \toprule
-          \textbf{V2 端点} & \textbf{关键结果} \\
+          \textbf{V2 Endpoint} & \textbf{Key Result} \\
           \midrule
           GET /health & \checkmark\ ok \\
-          /auth/register|login|me & \checkmark\ 全认证流 \\
+          /auth/register|login|me & \checkmark\ full auth flow \\
           GET /users/:id & \checkmark\ 200 \\
           POST /sessions & \checkmark\ 201 \\
           \rowcolor{blue!8}
@@ -257,9 +286,9 @@
           POST /measurements/batch & \checkmark\ \textbf{inserted=2} \\
           POST /measurements & \checkmark\ 201 \\
           GET /measurements/:sid & \checkmark\ 200 \\
-          PATCH /sessions/:id/end & \checkmark\ ended\_at 正确 \\
+          PATCH /sessions/:id/end & \checkmark\ ended\_at correct \\
           GET /sessions/:id & \checkmark\ 200 \\
-          DELETE /sessions/:id & \checkmark\ 级联删除 \\
+          DELETE /sessions/:id & \checkmark\ cascade delete \\
           GET /schedule/:uid & \checkmark\ 200 \\
           POST /recommendations & \checkmark\ 201 \\
           \bottomrule
@@ -269,38 +298,38 @@
   \end{columns}
   \vspace{-0.3cm}
   \begin{center}
-    \textcolor{passgreen}{\textbf{31/31 PASS}} — App 端全部接口正常工作
+    \textcolor{passgreen}{\textbf{31/31 PASS}}
   \end{center}
 \end{frame}
 
-\begin{frame}{Layer C--D: AI 引擎与临床 Web（18 项全通过）}
+\begin{frame}{Layers C--D: AI Engine \& Clinical Web (18/18)}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \textbf{Layer C: V1 AI $\leftrightarrow$ V2}
       \begin{itemize}
         \item C1: \texttt{GET /measurements/:sid}
         \begin{itemize}
-          \item 返回 \textbf{3 records}，包含完整角度数据
-          \item 数据格式 V1 可直接解析
+          \item Returns \textbf{3 records} with complete angle data
+          \item Data format directly parsable by V1
         \end{itemize}
-        \item C2: V1 推荐脚本实际运行
+        \item C2: V1 recommendation script actual run
         \begin{itemize}
           \item \texttt{python generate\_recommendation\_from\_curves.py}
-          \item 输出 JSON + TXT + HTML 三格式报告
+          \item Outputs JSON + TXT + HTML three-format report
           \item status: \texttt{significant\_deviation}
           \item confidence: \texttt{medium}
         \end{itemize}
       \end{itemize}
     \end{column}
     \begin{column}{0.52\textwidth}
-      \textbf{Layer D: M2 $\leftrightarrow$ V2（6 个 Service）}
+      \textbf{Layer D: M2 $\leftrightarrow$ V2 (6 Services)}
       \vspace{-0.2cm}
       \begin{table}[h]
         \tiny
         \rowcolors{2}{gray!8}{white}
         \begin{tabular}{p{2.4cm}l}
           \toprule
-          \textbf{M2 Service} & \textbf{测试端点} \\
+          \textbf{M2 Service} & \textbf{Test Endpoint} \\
           \midrule
           patientApiService & GET /patients \checkmark \\
           & GET /sessions?userId= \checkmark \\
@@ -324,72 +353,69 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{数据通路全链路测试：3 个真实用例（26/26）}
+\begin{frame}{Data Pipeline: 3 Use Cases (26/26)}
   \begin{table}[h]
     \centering
     \footnotesize
     \rowcolors{2}{gray!8}{white}
     \begin{tabular}{lccc}
       \toprule
-      \textbf{指标} & \textbf{TC1: Walking} & \textbf{TC2: Squat} & \textbf{TC3: Upstairs} \\
+      \textbf{Metric} & \textbf{TC1: Walking} & \textbf{TC2: Squat} & \textbf{TC3: Upstairs} \\
       \midrule
-      患者画像 & 轻度步态异常 & 重度 ROM 不足 & 正常爬楼 \\
-      \textbf{生成数据量} & 500 angles + 1000 sensors & 750 + 1500 & 400 + 800 \\
-      上传批次数 & 20 批 (25条/批) & 30 批 & 16 批 \\
-      上传成功率 & \cellcolor{green!15}500/500 (100\%) & \cellcolor{green!15}750/750 & \cellcolor{green!15}400/400 \\
+      Patient Profile & Mild gait abnormality & Severe ROM deficit & Normal stair climbing \\
+      \textbf{Generated Data Volume} & 500 angles + 1000 sensors & 750 + 1500 & 400 + 800 \\
+      Upload Batches & 20 batches & 30 batches & 16 batches \\
+      Upload Success Rate & \cellcolor{green!15}500/500 (100\%) & \cellcolor{green!15}750/750 & \cellcolor{green!15}400/400 \\
       \midrule
-      V1 AI 状态 & significant\_deviation & \textbf{mild\_deviation} & significant\_deviation \\
+      V1 AI Status & significant\_deviation & \textbf{mild\_deviation} & significant\_deviation \\
       V1 AI RMSE & \textbf{20.9°} & \textbf{13.4°} & \textbf{27.1°} \\
-      AI 置信度 & medium & \textbf{high} (5 segments) & high \\
-      数据写读一致 & \cellcolor{green!15}精确匹配 & \cellcolor{green!15}upload=retrieve & \cellcolor{green!15}完整一致 \\
+      AI Confidence & medium & high & high \\
       \bottomrule
     \end{tabular}
   \end{table}
 
-  \begin{block}{链路完整性验证}
+  \begin{block}{Pipeline Integrity Verification}
     \begin{itemize}
-      \item 生成 \textbf{1,650} 个角度测量 + \textbf{3,300} 个传感器采样（总计 \textbf{4,950} 条数据）
-      \item 全部 \textbf{66} 批次上传成功，\textbf{0} 条数据丢失
-      \item 每步数据流均验证：生成$\rightarrow$上传$\rightarrow$V2存储$\rightarrow$检索$\rightarrow$V1分析$\rightarrow$M2查询
+      \item Generated \textbf{1,650} angle measurements + \textbf{3,300} sensor samples (total \textbf{4,950} data points)
+      \item All \textbf{66} batches uploaded successfully, \textbf{0} data points lost
+      \item Every step verified: Generate $\rightarrow$ Upload $\rightarrow$ V2 Store $\rightarrow$ Retrieve $\rightarrow$ V1 Analyze $\rightarrow$ M2 Query
     \end{itemize}
   \end{block}
 \end{frame}
 
-\begin{frame}{场景综合测试：7 大场景（17/17 全通过）}
+\begin{frame}{Scenario Tests: 7 Scenarios (17/17)}
   \begin{table}[h]
     \centering
     \footnotesize
     \rowcolors{2}{gray!8}{white}
     \begin{tabular}{llc}
       \toprule
-      \textbf{场景} & \textbf{内容} & \textbf{关键数据} \\
+      \textbf{Scenario} & \textbf{Content} & \textbf{Key Data} \\
       \midrule
-      S1 并发用户 & 3 用户同时注册+上传 & \textbf{30/30} 并发成功，0 冲突 \\
-      S2 快速增删 & 10 次 create→upload→delete & \textbf{10/10} 全部完成 \\
-      S3 边界条件 & 重复结束/不存在/空会话 & 409/404 全部正确 \\
+      S1 Concurrent Users & 3 users simultaneous register + upload & \textbf{30/30} concurrent success, 0 conflicts \\
+      S2 Rapid Create/Delete & 10× create $\rightarrow$ upload $\rightarrow$ delete & \textbf{10/10} all completed \\
+      S3 Boundary Conditions & Duplicate end / nonexistent / empty session & 409/404 all correct \\
       \rowcolor{blue!8}
-      S4 批量压力 & 单批 200 条测量 & \textbf{38ms} 写入，200/200 检索一致 \\
-      S5 数据隔离 & userId 过滤查询 & 仅返回自有 sessions \\
-      S6 多动作 & 同一用户 3 种运动 & 3 sessions 独立存储 \\
-      S7 错误恢复 & 错误请求后重试 & 400→201 恢复成功 \\
+      S4 Batch Stress & Single batch of 200 measurements & \textbf{38ms} write, 200/200 consistent retrieval \\
+      S5 Data Isolation & userId-filtered queries & Only own sessions returned \\
+      S6 Multi-Action & Same user 3 different exercises & 3 sessions independently stored \\
+      S7 Error Recovery & Retry after malformed request & 400 $\rightarrow$ 201 recovery successful \\
       \bottomrule
     \end{tabular}
   \end{table}
 
-  \begin{block}{性能基线}
+  \begin{block}{Performance Baseline}
     \centering
-    批量写入：\textbf{200 条 / 38ms} $\approx$ \textbf{5,263 条/秒}
-    \quad
-    远超需求（$\le$500 行 <500ms）\quad \textcolor{passgreen}{\textbf{$\checkmark$ 5.2× 性能裕量}}
+    \small Batch write: \textbf{200 records / 38ms} $\approx$ \textbf{5,263 records/s}\\[0.2em]
   \end{block}
 \end{frame}
 
 % ============================================================================
-\section{缺陷探测结果}
+\section{Bug Discovery Results}
 % ============================================================================
 
 % --- Bug finding: split into 2 slides ---
-\begin{frame}{Bug 寻找测试 (1/2)：CRITICAL + HIGH 缺陷}
+\begin{frame}{Bug Hunt (1/2): CRITICAL \& HIGH}
   \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.15}
@@ -397,22 +423,23 @@
     \rowcolors{2}{gray!8}{white}
     \begin{tabular}{clp{4.5cm}p{4.5cm}}
       \toprule
-      \textbf{\#} & \textbf{级别} & \textbf{位置} & \textbf{描述与证据} \\
+      \textbf{\#} & \textbf{Severity} & \textbf{Location} & \textbf{Description \& Evidence} \\
       \midrule
-      B1 & \bug{CRIT} & \texttt{auth.js:2} & JWT 密钥硬编码；攻击者可伪造任意用户 token \\
-      B2 & \bug{CRIT} & \texttt{server.js:25} & CORS 无限制；任意网站跨域调用 API 并读取响应 \\
-      B3 & \bug{HIGH} & \texttt{routes/sessions.js} & 会话端点无认证；实测无 token 创建 session id=97 \\
-      B4 & \bug{HIGH} & \texttt{routes/users.js} & 用户端点无认证；实测无 token 读取 33 用户 + 修改数据 \\
+      B1 & \bug{CRIT} & \texttt{auth.js:2} & JWT secret hardcoded; attacker can forge arbitrary user tokens \\
+      B2 & \bug{CRIT} & \texttt{server.js:25} & CORS unrestricted; any website can call API cross-origin and read responses \\
+      B3 & \bug{HIGH} & \texttt{routes/sessions.js} & Session endpoints unauthenticated; confirmed session id=97 created without token \\
+      B4 & \bug{HIGH} & \texttt{routes/users.js} & User endpoints unauthenticated; confirmed read of 33 users + data modification without token \\
       \bottomrule
     \end{tabular}
   \end{table}
   \vspace{-0.1cm}
-  \begin{block}{影响评估}
-    \footnotesize B1+B2：外部网站可伪造 JWT 调用内部 API\qquad B3+B4：用户数据完全暴露，会话可被任意创建/删除
+  \begin{block}{Impact Assessment}
+    \footnotesize B1+B2: External sites can forge JWT to call internal APIs\\[0.1em]
+    B3+B4: User data fully exposed; sessions can be arbitrarily created/deleted
   \end{block}
 \end{frame}
 
-\begin{frame}{Bug 寻找测试 (2/2)：MEDIUM + LOW 缺陷}
+\begin{frame}{Bug Hunt (2/2): MEDIUM \& LOW}
   \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.1}
@@ -420,176 +447,138 @@
     \rowcolors{2}{gray!8}{white}
     \begin{tabular}{clp{6.5cm}l}
       \toprule
-      \textbf{\#} & \textbf{级别} & \textbf{位置与问题} & \textbf{状态} \\
+      \textbf{\#} & \textbf{Severity} & \textbf{Location \& Issue} & \textbf{Status} \\
       \midrule
-      B7 & \warn{MED} & \texttt{usersController.js:103}：审计日志 user\_id=null & 已知 \\
-      B8 & \warn{MED} & \texttt{server.js:26}：express.json() 无 size limit，易 413 & 已知 \\
-      B9 & \warn{MED} & \texttt{authStore.ts:20}：JWT 存 localStorage（XSS 风险） & 已知 \\
-      B10 & \warn{MED} & \texttt{sessionsController.js:10}：无认证暴露用户会话信息 & 已知 \\
-      B6 & \warn{MED} & \texttt{sessionsController.js:16}：SQL 注入（参数化查询已防御） & \checkmark \\
-      B12 & LOW & \texttt{api\_client.py:26}：HTTP client 无超时，永久阻塞 & 已知 \\
+      B7 & \warn{MED} & \texttt{usersController.js:103}: audit log user\_id=null & Known \\
+      B8 & \warn{MED} & \texttt{server.js:26}: express.json() no size limit, prone to 413 & Known \\
+      B9 & \warn{MED} & \texttt{authStore.ts:20}: JWT stored in localStorage (XSS risk) & Known \\
+      B10 & \warn{MED} & \texttt{sessionsController.js:10}: unauthenticated session info exposure & Known \\
+      B6 & \warn{MED} & \texttt{sessionsController.js:16}: SQL injection (parameterized queries defend) & \checkmark \\
+      B12 & LOW & \texttt{api\_client.py:26}: HTTP client no timeout, permanent hang & Known \\
       \bottomrule
     \end{tabular}
   \end{table}
   \vspace{-0.15cm}
-  {\footnotesize\color{blue!60!black}防御有效：B5 JSON.parse 防崩溃 | B14 arccos 域安全 | B15 除零守卫 | B16 空批量校验}
+  {\footnotesize\color{blue!60!black}Defenses effective: B5 JSON.parse crash-proofing | B14 arccos domain safety\\ B15 division-by-zero guard | B16 empty batch validation}
 \end{frame}
 
 % --- Null safety: restructured ---
-\begin{frame}{空值安全测试：34/35 通过，0 崩溃风险}
+\begin{frame}{Null Safety: 34/35 Passed, 0 Crashes}
   \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.1}
     \small
     \rowcolors{2}{gray!8}{white}
-    \begin{tabular}{p{4.5cm}ll}
+    \begin{tabular}{p{4.2cm}p{4.8cm}l}
       \toprule
-      \textbf{测试场景} & \textbf{验证内容} & \textbf{结果} \\
+      \textbf{Test Scenario} & \textbf{Verified} & \textbf{Result} \\
       \midrule
-      新用户空数据查询 & GET /sessions, /schedule 返回空数组 & \checkmark\ [] \\
-      新用户进度指标 & ROM=0, 依从性=0\%, 历史=[] & \checkmark\ 正确 \\
-      测量字段 null 安全 & sensor\_data/errors 始终返回数组非 null & \checkmark\ 安全 \\
-      活跃会话 ended\_at & 未结束时正确为 null & \checkmark\ 正确 \\
-      可选字段缺失 & conditionLabel/RomDegrees 新用户为 null & \checkmark\ 正确 \\
-      不存在资源 404 & /users、/sessions、/measurements、/progress & \checkmark\ 全部 404 \\
-      数据库边界约束 & 空姓名→400、负数/字符串 userId→拒绝 & \checkmark\ 安全 \\
-      M2 API 合约 & patients/feedback/announcements 始终数组 & \checkmark\ 非 null \\
-      App 代理转发 & 空 schedule、不存在 session 传递错误 & \checkmark\ 正确 \\
+      New user empty data query & GET /sessions, /schedule returns empty array & \checkmark\ [] \\
+      New user progress metrics & ROM=0, compliance=0\%, history=[] & \checkmark\ correct \\
+      Measurement field null safety & sensor\_data/errors always return array, not null & \checkmark\ safe \\
+      Active session ended\_at & Correctly null when not ended & \checkmark\ correct \\
+      Optional field missing & conditionLabel/RomDegrees null for new users & \checkmark\ correct \\
+      Non-existent resource 404 & /users, /sessions, /measurements, /progress & \checkmark\ all 404 \\
+      DB boundary constraints & empty name $\rightarrow$ 400, negative/string userId $\rightarrow$ rejected & \checkmark\ safe \\
+      M2 API contract & patients/feedback/announcements always arrays & \checkmark\ non-null \\
+      App proxy forwarding & Empty schedule, nonexistent session pass errors & \checkmark\ correct \\
       \bottomrule
     \end{tabular}
   \end{table}
   \vspace{-0.1cm}
-  \begin{block}{唯一警告}
-    \footnotesize \warn{V1 generate\_recommendation\_from\_curves.py:132}：0 条测量 session 抛异常非返回空推荐（数据不足时拒绝分析，合理行为）
+  \begin{block}{Single Warning}
+    \footnotesize \warn{V1 generate\_recommendation\_from\_curves.py:132}: 0-measurement session throws exception instead of returning empty recommendation (refuses analysis when data insufficient — reasonable behavior)
   \end{block}
 \end{frame}
 
 % --- 6 problems: simplified layout ---
-\begin{frame}{集成过程中发现并解决的真实问题}
+\begin{frame}{Issues Discovered \& Resolved During Integration}
   \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.2}
     \small
     \rowcolors{2}{gray!8}{white}
-    \begin{tabular}{p{2.8cm}p{5.2cm}p{3.8cm}}
+    \begin{tabular}{p{2.6cm}p{5.0cm}p{4.0cm}}
       \toprule
-      \textbf{问题类型} & \textbf{具体表现} & \textbf{处理方式} \\
+      \textbf{Issue Type} & \textbf{Specifics} & \textbf{Resolution} \\
       \midrule
-      413 Payload Too Large & Express 默认 100KB，$>$25 条触发 & App 分片 / 测试 25 条/批 \\
-      11 处硬编码 URL & 全部指向 \texttt{113.44.220.94:3000} & 改环境变量，默认 localhost \\
-      M2 全量 Mock & 5 页面使用模拟数据 & 真实 API + 配置切换 \\
-      PowerShell 兼容 & ?? 运算符、DarkGray 崩溃 & 兼容语法 + ASCII \\
-      \bug{JWT 硬编码密钥} & auth.js fallback 固定字符串 & 环境变量覆盖 \\
-      \bug{路由认证缺失} & sessions/users 无 requireAuth & Sprint 3 计划添加 \\
+      413 Payload Too Large & Express default 100KB & App sharding 100 per batch \\
+      11 Hardcoded URLs & All pointing to \texttt{113.44.220.94:3000} & Replaced with env vars, default localhost \\
+      M2 Full Mock Data & 5 pages using simulated data & Real API + config switch \\
+      \bug{JWT Hardcoded Secret} & auth.js fallback string exposed & Env var override \\
+      \bug{Missing Route Auth} & sessions/users lack requireAuth & Planned for Sprint 3 \\
       \bottomrule
     \end{tabular}
   \end{table}
   \vspace{-0.15cm}
-  \begin{center}\footnotesize 已修复/绕过：\textbf{4 个}\qquad 已知悉待后续处理：\textbf{2 个}（JWT 密钥 + RBAC）\end{center}
-\end{frame}
-
-% --- Quantification: cleaner layout ---
-\begin{frame}{工作量量化总表}
-  \begin{table}[h]
-    \centering
-    \renewcommand{\arraystretch}{1.2}
-    \small
-    \begin{tabular}{lrlr}
-      \toprule
-      \multicolumn{2}{c}{\textbf{工程产出}} & \multicolumn{2}{c}{\textbf{测试覆盖}} \\
-      \midrule
-      修改源文件 & 11 个 & 测试脚本总数 & 6 个 \\
-      新建配置文件 & 3 个 & 测试项总数 & \textbf{166 项} \\
-      新建测试脚本 & 6 个 & 通过率 & \cellcolor{green!15}\textbf{100\%} \\
-      新建启动脚本 & 2 个 & 失败/崩溃 & \textbf{0} \\
-      文档输出 & 3 份 & 覆盖 API 端点 & 40+ \\
-      LaTeX PPT & 1 份 & 生成测试数据 & 4,950 条 \\
-      \midrule
-      \multicolumn{2}{c}{\textbf{合计产出：26 文件}} & \multicolumn{2}{c}{\textbf{缺陷：10 个发现，6 个已修复/绕过}} \\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-  \vspace{-0.1cm}
-  \begin{center}
-    \begin{tikzpicture}
-      \node[rectangle,draw,fill=green!20,minimum width=10cm,minimum height=1.2cm,rounded corners,inner sep=0pt] {
-        \textbf{\large 166 项测试 · 0 失败 · 100\% 通过率}\quad\footnotesize 4 模块 × 6 层 × 3 用例 × 7 场景
-      };
-    \end{tikzpicture}
-  \end{center}
+  \begin{center}\footnotesize Fixed/bypassed: \textbf{4}\qquad Known, pending follow-up: \textbf{2} (JWT secret + RBAC)\end{center}
 \end{frame}
 
 % --- 5-level criteria: kept clean ---
-\begin{frame}{5 级通过标准：全部达成}
+\begin{frame}{5-Level Criteria: All Achieved}
   \begin{center}
     \begin{tikzpicture}[
-      level/.style={rectangle,draw,rounded corners,minimum width=11cm,minimum height=0.7cm,align=left,font=\footnotesize}]
+      level/.style={rectangle,draw,rounded corners,minimum width=12.5cm,minimum height=0.68cm,align=left,font=\footnotesize}]
 
-      \node[level,fill=green!15] (l1) {[\checkmark]\ \textbf{Level 1: 环境就绪} —— 9/9 检查项通过（运行时 + 依赖 + 端口）};
-      \node[level,fill=green!10,below=0.15cm of l1] (l2) {[\checkmark]\ \textbf{Level 2: 单元连通} —— V2 / App / M2 三个服务全部正常启动响应};
-      \node[level,fill=green!15,below=0.15cm of l2] (l3) {[\checkmark]\ \textbf{Level 3: 点对点集成} —— 40+ API 端点全部返回预期 HTTP 状态码};
-      \node[level,fill=green!10,below=0.15cm of l3] (l4) {[\checkmark]\ \textbf{Level 4: 端到端数据流} —— 模拟器→V2→V1 AI→推荐→展示，100\% 一致};
-      \node[level,fill=green!15,below=0.15cm of l4] (l5) {[\checkmark]\ \textbf{Level 5: 场景综合} —— 并发/压力/边界/隔离/安全/空值，全部通过};
+      \node[level,fill=green!15] (l1) {[\checkmark]\ \textbf{Level 1: Environment Ready} — 9/9 checks passed (runtime + dependencies + ports)};
+      \node[level,fill=green!10,below=0.15cm of l1] (l2) {[\checkmark]\ \textbf{Level 2: Unit Connectivity} — V2 / App / M2 all services started and responding};
+      \node[level,fill=green!15,below=0.15cm of l2] (l3) {[\checkmark]\ \textbf{Level 3: Point-to-Point Integration} — 40+ API endpoints return expected HTTP status codes};
+      \node[level,fill=green!10,below=0.15cm of l3] (l4) {[\checkmark]\ \textbf{Level 4: End-to-End Data Flow} — Simulator$\rightarrow$V2$\rightarrow$V1 AI$\rightarrow$Recommend$\rightarrow$Display, 100\% consistent};
+      \node[level,fill=green!15,below=0.15cm of l4] (l5) {[\checkmark]\ \textbf{Level 5: Scenario Comprehensive} — Concurrency/stress/boundary/isolation/security/null, all passed};
     \end{tikzpicture}
   \end{center}
   \vspace{0.1cm}
-  \begin{block}{待完善项（已标注，非阻塞）}
+  \begin{block}{Pending Improvements (Noted, Non-Blocking)}
     \footnotesize
-    V2 RBAC 权限控制（Sprint 3）\quad|\quad
-    V1 标准曲线临床验证（文档已声明）\quad|\quad
-    M2 3D 实时更新（API 合约已就绪）
+    V2 RBAC access control (Sprint 3)\quad|\quad
+    V1 standard curve clinical validation (documented)\quad|\quad
+    M2 3D real-time updates (API contract ready)
   \end{block}
 \end{frame}
 
-\begin{frame}{运行指南}
-  \begin{block}{一键启动所有服务}
+\begin{frame}{Run Guide}
+  \begin{block}{One-Click Start All Services}
     \centering
     \texttt{powershell -ExecutionPolicy Bypass -File scripts\textbackslash start\_all.ps1}
   \end{block}
 
-  \begin{block}{依次运行全部测试（$\sim$9 分钟）}
+  \begin{block}{Run All Tests in Sequence}
     \centering
     \small
     \begin{tabular}{lcl}
       \toprule
-      \textbf{步骤} & \textbf{命令} & \textbf{测试项} \\
+      \textbf{Step} & \textbf{Command} & \textbf{Test Items} \\
       \midrule
-      1. 环境检查 & \texttt{scripts\textbackslash check\_env.bat} & 9 项 \\
-      2. 冒烟测试 & \texttt{...smoke\_test.ps1} & 14 项 \\
-      3. 全接口测试 & \texttt{...integration\_test.ps1} & 62 项 \\
-      4. 数据通路 & \texttt{...pipeline\_test.ps1} & 26 项 \\
-      5. 场景压力 & \texttt{...scenario\_test.ps1} & 17 项 \\
-      6. 缺陷探测 & \texttt{...bug\_hunt.ps1} & 13 项 \\
-      7. 空值安全 & \texttt{...null\_safety.ps1} & 34 项 \\
+      1. Environment Check & \texttt{scripts\textbackslash check\_env.bat} & 9 items \\
+      2. Smoke Test & \texttt{...smoke\_test.ps1} & 14 items \\
+      3. Full Interface Test & \texttt{...integration\_test.ps1} & 62 items \\
+      4. Data Pipeline & \texttt{...pipeline\_test.ps1} & 26 items \\
+      5. Scenario \& Stress & \texttt{...scenario\_test.ps1} & 17 items \\
+      6. Defect Detection & \texttt{...bug\_hunt.ps1} & 13 items \\
+      7. Null Safety & \texttt{...null\_safety.ps1} & 34 items \\
       \bottomrule
     \end{tabular}
   \end{block}
 
   \begin{center}
-    \textbf{全自动运行，无需人工干预，总计 166 项检查}
+    \textbf{Fully automated execution, no manual intervention, 166 total checks}
   \end{center}
 \end{frame}
 
 % ============================================================================
-\section*{结束}
+\section*{End}
 % ============================================================================
 
 \begin{frame}[plain]
   \begin{center}
-    \vspace{1cm}
-    {\Huge \textcolor{passgreen}{\textbf{166 / 166 PASSED}}}
-
-    \vspace{0.4cm}
-    {\Large 零失败 · 零数据丢失 · 零崩溃}
-
     \vspace{1.5cm}
-    {\LARGE 谢谢！欢迎提问}
+    {\LARGE Thank You!}
 
     \vspace{1cm}
     {\normalsize DSD 2025--2026 \quad UTAD $\times$ Jilin University}
 
     \vspace{0.5cm}
-    {\footnotesize 全部脚本: \texttt{scripts/} \ | \ 文档: \texttt{TEST\_GUIDE.md} \ | \ PPT源码: \texttt{docs/integration\_test\_presentation.tex}}
+    {\footnotesize Scripts: \texttt{scripts/} \ | \ Docs: \texttt{TEST\_GUIDE.md} \ | \ PPT: \texttt{docs/integration\_test\_presentation.tex}}
   \end{center}
 \end{frame}
 
