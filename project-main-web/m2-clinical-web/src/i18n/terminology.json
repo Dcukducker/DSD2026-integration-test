@@ -1,0 +1,41 @@
+{
+  "medical": [
+    { "key": "mediumRisk", "zh-CN": "中风险", "en": "Medium Risk", "pt-BR": "Risco Medio" },
+    { "key": "lowRisk", "zh-CN": "低风险", "en": "Low Risk", "pt-BR": "Risco Baixo" },
+    { "key": "highRisk", "zh-CN": "高风险", "en": "High Risk", "pt-BR": "Risco Alto" },
+    { "key": "veryHighRisk", "zh-CN": "极高风险", "en": "Very High Risk", "pt-BR": "Risco Muito Alto" },
+    { "key": "delayedRecoveryGroup", "zh-CN": "迟缓恢复组", "en": "Delayed Recovery Group", "pt-BR": "Grupo de Recuperacao Atrasada" },
+    { "key": "optimalRecoveryGroup", "zh-CN": "优质恢复组", "en": "Optimal Recovery Group", "pt-BR": "Grupo de Recuperacao Otima" },
+    { "key": "highRiskCompensationGroup", "zh-CN": "高风险代偿组", "en": "High-Risk Compensation Group", "pt-BR": "Grupo de Compensacao de Alto Risco" },
+    { "key": "scarManagement", "zh-CN": "瘢痕管理", "en": "Scar Management", "pt-BR": "Gestao de Cicatrizes" },
+    { "key": "adhesionRelease", "zh-CN": "粘连松解", "en": "Adhesion Release", "pt-BR": "Liberacao de Aderencias" },
+    { "key": "postOpPhase", "zh-CN": "术后分期", "en": "Post-op Phase", "pt-BR": "Fase Pos-Operatoria" },
+    { "key": "clinicalPathway", "zh-CN": "临床路径", "en": "Clinical Pathway", "pt-BR": "Caminho Clinico" },
+    { "key": "riskStratification", "zh-CN": "风险分层", "en": "Risk Stratification", "pt-BR": "Estratificacao de Risco" },
+    { "key": "lysholmScore", "zh-CN": "Lysholm评分", "en": "Lysholm Score", "pt-BR": "Escala Lysholm" }
+    ,{ "key": "ikdcScore", "zh-CN": "IKDC评分", "en": "IKDC Score", "pt-BR": "Pontuacao IKDC" }
+    ,{ "key": "tegnerActivityScale", "zh-CN": "Tegner活动等级", "en": "Tegner Activity Scale", "pt-BR": "Escala de Atividade Tegner" }
+    ,{ "key": "mmt", "zh-CN": "肌力等级（MMT）", "en": "Muscle Manual Test (MMT)", "pt-BR": "Teste Manual Muscular (MMT)" }
+    ,{ "key": "rom", "zh-CN": "关节活动度（ROM）", "en": "Range of Motion (ROM)", "pt-BR": "Amplitude de Movimento (ROM)" }
+    ,{ "key": "followUp", "zh-CN": "复诊与随访", "en": "Follow-up", "pt-BR": "Acompanhamento" }
+    ,{ "key": "clinicalComplication", "zh-CN": "临床并发症", "en": "Clinical Complication", "pt-BR": "Complicacao Clinica" }
+  ],
+  "technical": [
+    { "key": "serviceHealth", "zh-CN": "服务健康度", "en": "Service Health", "pt-BR": "Saude do Servico" },
+    { "key": "canaryRelease", "zh-CN": "灰度发布", "en": "Canary Release", "pt-BR": "Lancamento Canario" },
+    { "key": "auditLog", "zh-CN": "审计日志", "en": "Audit Log", "pt-BR": "Log de Auditoria" },
+    { "key": "errorRate", "zh-CN": "错误率", "en": "Error Rate", "pt-BR": "Taxa de Erro" },
+    { "key": "latency", "zh-CN": "延迟", "en": "Latency", "pt-BR": "Latencia" },
+    { "key": "qps", "zh-CN": "每秒查询数（QPS）", "en": "Queries Per Second (QPS)", "pt-BR": "Consultas Por Segundo (QPS)" },
+    { "key": "apiGateway", "zh-CN": "API 网关", "en": "API Gateway", "pt-BR": "API Gateway" },
+    { "key": "configurationCenter", "zh-CN": "配置中心", "en": "Configuration Center", "pt-BR": "Central de Configuracao" },
+    { "key": "releasePipeline", "zh-CN": "发布流水线", "en": "Release Pipeline", "pt-BR": "Pipeline de Release" },
+    { "key": "rollback", "zh-CN": "回滚", "en": "Rollback", "pt-BR": "Rollback" },
+    { "key": "monitoring", "zh-CN": "服务监控", "en": "Service Monitoring", "pt-BR": "Monitoramento de Servicos" },
+    { "key": "alerting", "zh-CN": "告警", "en": "Alerting", "pt-BR": "Alertas" },
+    { "key": "logCenter", "zh-CN": "日志中心", "en": "Log Center", "pt-BR": "Central de Logs" },
+    { "key": "runtimeConfig", "zh-CN": "运行配置", "en": "Runtime Configuration", "pt-BR": "Configuracao de Execucao" },
+    { "key": "healthCheck", "zh-CN": "健康检查", "en": "Health Check", "pt-BR": "Verificacao de Saude" },
+    { "key": "smokeTest", "zh-CN": "冒烟测试", "en": "Smoke Test", "pt-BR": "Teste de Fumaca" }
+  ]
+}

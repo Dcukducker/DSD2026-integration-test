@@ -1,0 +1,78 @@
+AI-Assisted Motion Curve Recommendation
+
+Action: walking
+Angle ID: left_knee
+Comparison version: v0.6-clinical-advice-accuracy
+Input type: api
+Patient source: http://localhost:3000/measurements/94
+Standard source: D:\tdr\uni3\DSD\all-apps\v1-motion-standard-curves\outputs\walking\normal_knee_curve.csv
+Comparison mode: full_curve
+Status: significant_deviation
+Confidence: medium
+
+Segmentation:
+- Requested mode: auto
+- Method: local_minima_cycles
+- Label: cycles
+- Attempted: True
+- Used: False
+- Segments detected: 18
+- Segments used: 0
+- Segments rejected: 18
+- Aggregation method: None
+- Average segment duration: None s
+- Fallback reason: no_valid_segments_detected
+
+Component status:
+- Overall: significant_deviation
+- Shape: significant_deviation
+- Range of motion: mild_deviation
+- Vertical offset: normal
+- Standard band: significant_deviation
+
+Key metrics:
+- Patient peak angle: 48.01 deg
+- Standard peak angle: 61.363057 deg
+- Peak angle difference: -13.353057 deg
+- Peak timing difference: 45.0 percentage points
+- Patient min angle: 15.616667 deg
+- Standard min angle: 7.586953 deg
+- Min angle difference: 8.029714 deg
+- Patient amplitude: 32.393333 deg
+- Standard amplitude: 53.776104 deg
+- Amplitude difference: -21.382771 deg
+- Range of motion percent of standard: 60.237412
+- MAE: 18.31844 deg
+- RMSE: 21.002346 deg
+- Shape RMSE after offset correction: 20.406179 deg
+- Max absolute deviation: 40.336027 deg
+- Mean signed deviation: 4.968541 deg
+- Correlation: -0.029818
+- Outside standard band percent: 80.19802
+
+Observations:
+- Patient segmentation was attempted but the full curve was used because: no_valid_segments_detected.
+- Lower peak knee angle may indicate reduced knee flexion during walking.
+- Lower movement amplitude may suggest reduced walking range of motion.
+- The walking curve differs from the standard curve shape.
+- A notable portion of the curve is outside the healthy standard deviation band.
+
+Quality notes:
+- The comparison used the full patient curve because segmentation was not available or not appropriate for this action.
+
+Recommendation:
+The walking curve shows significant deviation from the current healthy reference. Patient segmentation was attempted but the full curve was used because: no_valid_segments_detected. Lower peak knee angle may indicate reduced knee flexion during walking. Lower movement amplitude may suggest reduced walking range of motion. The walking curve differs from the standard curve shape. A notable portion of the curve is outside the healthy standard deviation band. This may indicate a movement difference, but it is not a final medical diagnosis and should be reviewed by a doctor.
+
+Clinical advice draft:
+The walking curve shows significant deviation from the healthy reference. A clinician or physiotherapist should review the movement before progression, especially if the patient reports pain, instability, swelling, or reduced function.
+Review priority: clinical_review_recommended
+Focus areas: range_of_motion, movement_pattern, deviation_from_healthy_reference_band
+Safety note: This is a draft clinical-support message for qualified review. It is not a diagnosis, prescription, or standalone treatment plan.
+
+Doctor review note:
+This is AI-assisted analysis and should be reviewed by a doctor.
+
+Limitations:
+- This output is not a medical diagnosis.
+- The analysis is based only on motion curve data.
+- The result should be interpreted by a qualified clinician.

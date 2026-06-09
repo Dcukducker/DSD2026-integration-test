@@ -1,0 +1,21 @@
+:root {
+  --font-family-sans: 'Inter', 'Source Han Sans SC', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --color-bg-page: #e8edf3;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #f8fafc;
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border-default: #e2e8f0;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-info: #38bdf8;
+
+  --color-sidebar-bg: #0f172a;
+  --color-sidebar-text: #e2e8f0;
+  --color-sidebar-link: #cbd5e1;
+}

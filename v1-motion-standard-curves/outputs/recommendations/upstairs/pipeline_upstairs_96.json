@@ -1,0 +1,94 @@
+{
+  "action": "upstairs",
+  "angleID": "left_knee",
+  "comparisonVersion": "v0.6-clinical-advice-accuracy",
+  "inputType": "api",
+  "patientSource": "http://localhost:3000/measurements/96",
+  "standardSource": "D:\\tdr\\uni3\\DSD\\all-apps\\v1-motion-standard-curves\\outputs\\upstairs\\standard_upstairs_curve.csv",
+  "comparisonMode": "full_curve",
+  "segmentation": {
+    "requestedMode": "auto",
+    "attempted": false,
+    "used": false,
+    "method": "whole_action",
+    "label": "full_action",
+    "segmentsDetected": 0,
+    "segmentsUsed": 0,
+    "segmentsRejected": 0,
+    "rejectedReasonCounts": {},
+    "averageSegmentDurationSeconds": null,
+    "segmentDurationSeconds": [],
+    "fallbackReason": "The current upstairs standard curve represents the full stair-climbing action, not one step cycle."
+  },
+  "status": "significant_deviation",
+  "confidence": "high",
+  "componentStatus": {
+    "overall": "significant_deviation",
+    "shape": "significant_deviation",
+    "rangeOfMotion": "mild_deviation",
+    "verticalOffset": "mild_deviation",
+    "standardBand": "significant_deviation"
+  },
+  "engineeringThresholds": {
+    "validationStatus": "preliminary_engineering_thresholds_not_clinically_validated",
+    "normalRmseMax": 8.0,
+    "mildRmseMax": 18.0,
+    "normalAmplitudeDifferenceMax": 10.0,
+    "mildAmplitudeDifferenceMax": 25.0,
+    "normalOutsideStandardBandMax": 20.0,
+    "mildOutsideStandardBandMax": 50.0
+  },
+  "metrics": {
+    "patientPeakAngle": 58.572,
+    "standardPeakAngle": 75.181932,
+    "peakAngleDifference": -16.609932,
+    "patientPeakPercent": 63.0,
+    "standardPeakPercent": 23.0,
+    "peakTimingDifferencePercent": 40.0,
+    "patientMinAngle": 11.146,
+    "standardMinAngle": 10.814784,
+    "minAngleDifference": 0.331216,
+    "patientAmplitude": 47.426,
+    "standardAmplitude": 64.367148,
+    "amplitudeDifference": -16.941148,
+    "amplitudeRatio": 0.736804,
+    "rangeOfMotionPercentOfStandard": 73.680443,
+    "mae": 22.788284,
+    "rmse": 27.412754,
+    "shapeRmseAfterOffsetCorrection": 25.131468,
+    "maxAbsoluteDeviation": 60.015659,
+    "meanSignedDeviation": -10.948443,
+    "correlation": -0.007285,
+    "outsideStandardBandPercent": 56.435644
+  },
+  "qualityNotes": [
+    "The comparison used the full patient curve because segmentation was not available or not appropriate for this action.",
+    "Upstairs is currently compared as a full stair-climbing action because the current standard curve is full-action based."
+  ],
+  "observations": [
+    "Lower peak knee angle may suggest reduced knee lift during stair climbing.",
+    "Lower movement amplitude may suggest limited movement range.",
+    "The stair-climbing curve differs from the standard curve shape.",
+    "A notable portion of the curve is outside the healthy standard deviation band.",
+    "The patient curve is generally below the standard curve."
+  ],
+  "recommendationText": "The stair-climbing curve shows significant deviation from the current healthy reference. Lower peak knee angle may suggest reduced knee lift during stair climbing. Lower movement amplitude may suggest limited movement range. The stair-climbing curve differs from the standard curve shape. A notable portion of the curve is outside the healthy standard deviation band. The patient curve is generally below the standard curve. This may indicate a movement difference, but it is not a final medical diagnosis and should be reviewed by a doctor.",
+  "clinicalAdviceDraft": {
+    "reviewPriority": "clinical_review_recommended",
+    "focusAreas": [
+      "range_of_motion",
+      "movement_pattern",
+      "angle_calibration_or_baseline_offset",
+      "deviation_from_healthy_reference_band"
+    ],
+    "draftAdvice": "The stair-climbing curve shows significant deviation from the healthy reference. A clinician or physiotherapist should review the movement before progression, especially if the patient reports pain, instability, swelling, or reduced function.",
+    "safetyNote": "This is a draft clinical-support message for qualified review. It is not a diagnosis, prescription, or standalone treatment plan.",
+    "rangeOfMotionPercentOfStandard": 73.680443
+  },
+  "doctorReviewNote": "This is AI-assisted analysis and should be reviewed by a doctor.",
+  "limitations": [
+    "This output is not a medical diagnosis.",
+    "The analysis is based only on motion curve data.",
+    "The result should be interpreted by a qualified clinician."
+  ]
+}

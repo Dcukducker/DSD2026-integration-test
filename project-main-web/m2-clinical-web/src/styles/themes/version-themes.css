@@ -1,0 +1,11 @@
+:root[data-ui-version='v1'] {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+:root[data-ui-version='v2'] {
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+}

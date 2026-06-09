@@ -1,0 +1,95 @@
+{
+  "action": "walking",
+  "angleID": "left_knee",
+  "comparisonVersion": "v0.6-clinical-advice-accuracy",
+  "inputType": "api",
+  "patientSource": "http://localhost:3000/measurements/15",
+  "standardSource": "D:\\tdr\\uni3\\DSD\\all-apps\\v1-motion-standard-curves\\outputs\\walking\\normal_knee_curve.csv",
+  "comparisonMode": "full_curve",
+  "segmentation": {
+    "requestedMode": "auto",
+    "attempted": true,
+    "used": false,
+    "method": "local_minima_cycles",
+    "label": "cycles",
+    "segmentsDetected": 18,
+    "segmentsUsed": 0,
+    "segmentsRejected": 18,
+    "rejectedReasonCounts": {
+      "duration_too_short": 18
+    },
+    "averageSegmentDurationSeconds": null,
+    "segmentDurationSeconds": [],
+    "fallbackReason": "no_valid_segments_detected",
+    "extremaCount": 19
+  },
+  "status": "significant_deviation",
+  "confidence": "medium",
+  "componentStatus": {
+    "overall": "significant_deviation",
+    "shape": "significant_deviation",
+    "rangeOfMotion": "mild_deviation",
+    "verticalOffset": "normal",
+    "standardBand": "significant_deviation"
+  },
+  "engineeringThresholds": {
+    "validationStatus": "preliminary_engineering_thresholds_not_clinically_validated",
+    "normalRmseMax": 8.0,
+    "mildRmseMax": 18.0,
+    "normalAmplitudeDifferenceMax": 10.0,
+    "mildAmplitudeDifferenceMax": 25.0,
+    "normalOutsideStandardBandMax": 20.0,
+    "mildOutsideStandardBandMax": 50.0
+  },
+  "metrics": {
+    "patientPeakAngle": 46.65,
+    "standardPeakAngle": 61.363057,
+    "peakAngleDifference": -14.713057,
+    "patientPeakPercent": 100.0,
+    "standardPeakPercent": 54.0,
+    "peakTimingDifferencePercent": 46.0,
+    "patientMinAngle": 15.99,
+    "standardMinAngle": 7.586953,
+    "minAngleDifference": 8.403047,
+    "patientAmplitude": 30.66,
+    "standardAmplitude": 53.776104,
+    "amplitudeDifference": -23.116104,
+    "amplitudeRatio": 0.570142,
+    "rangeOfMotionPercentOfStandard": 57.014171,
+    "mae": 18.288168,
+    "rmse": 20.897927,
+    "shapeRmseAfterOffsetCorrection": 20.323627,
+    "maxAbsoluteDeviation": 39.925057,
+    "meanSignedDeviation": 4.865546,
+    "correlation": -0.024447,
+    "outsideStandardBandPercent": 80.19802
+  },
+  "qualityNotes": [
+    "The comparison used the full patient curve because segmentation was not available or not appropriate for this action."
+  ],
+  "observations": [
+    "Patient segmentation was attempted but the full curve was used because: no_valid_segments_detected.",
+    "Lower peak knee angle may indicate reduced knee flexion during walking.",
+    "Lower movement amplitude may suggest reduced walking range of motion.",
+    "The walking curve differs from the standard curve shape.",
+    "A notable portion of the curve is outside the healthy standard deviation band."
+  ],
+  "recommendationText": "The walking curve shows significant deviation from the current healthy reference. Patient segmentation was attempted but the full curve was used because: no_valid_segments_detected. Lower peak knee angle may indicate reduced knee flexion during walking. Lower movement amplitude may suggest reduced walking range of motion. The walking curve differs from the standard curve shape. A notable portion of the curve is outside the healthy standard deviation band. This may indicate a movement difference, but it is not a final medical diagnosis and should be reviewed by a doctor.",
+  "clinicalAdviceDraft": {
+    "reviewPriority": "clinical_review_recommended",
+    "focusAreas": [
+      "range_of_motion",
+      "movement_pattern",
+      "deviation_from_healthy_reference_band"
+    ],
+    "draftAdvice": "The walking curve shows significant deviation from the healthy reference. A clinician or physiotherapist should review the movement before progression, especially if the patient reports pain, instability, swelling, or reduced function.",
+    "safetyNote": "This is a draft clinical-support message for qualified review. It is not a diagnosis, prescription, or standalone treatment plan.",
+    "rangeOfMotionPercentOfStandard": 57.014171
+  },
+  "doctorReviewNote": "This is AI-assisted analysis and should be reviewed by a doctor.",
+  "limitations": [
+    "This output is not a medical diagnosis.",
+    "The analysis is based only on motion curve data.",
+    "The result should be interpreted by a qualified clinician."
+  ]
+}

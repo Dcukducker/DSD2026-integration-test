@@ -1,0 +1,273 @@
+﻿/* Published announcements — horizontal ticker below top bar */
+.doctor-announcement-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 34px;
+  padding: 0.35rem 1.2rem;
+  background: linear-gradient(90deg, #eef4ff 0%, #f8fbff 50%, #eef4ff 100%);
+  border-bottom: 1px solid #d7e5ff;
+  overflow: hidden;
+}
+
+.doctor-shell-portal .doctor-announcement-bar {
+  max-width: none;
+}
+
+.doctor-announcement-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.doctor-announcement-dismiss {
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+  border: none;
+  background: transparent;
+  color: #5b6b88;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.1rem 0.45rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.doctor-announcement-dismiss:hover {
+  background: rgba(22, 93, 255, 0.08);
+  color: #1a3a6b;
+}
+
+.doctor-announcement-dismiss:focus-visible {
+  outline: 2px solid #165dff;
+  outline-offset: 2px;
+}
+
+.doctor-announcement-viewport {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  height: 1.35rem;
+}
+
+.doctor-announcement-measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ◆公告1 + 20ch 间距 + ◆公告2（避免 HTML 合并普通空格） */
+.doctor-announcement-line {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.doctor-announcement-item:not(:first-child) {
+  margin-left: 20ch;
+}
+
+.doctor-announcement-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: doctor-announcement-scroll linear infinite;
+}
+
+.doctor-announcement-chunk {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #1a3a6b;
+  font-weight: 500;
+  line-height: 1.35rem;
+}
+
+.doctor-announcement-chunk .doctor-announcement-item {
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+@keyframes doctor-announcement-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--announcement-loop, 50%)));
+  }
+}
+
+.patient-list-shell .doctor-announcement-bar {
+  border-bottom: 1px solid #d7e5ff;
+}
+
+/* Doctor portal layout (default UI) */
+.doctor-shell-portal .patient-nav-tools {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.doctor-portal-patient-strip {
+  border-bottom: 1px solid #d7e5ff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.doctor-portal-patient-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 1.2rem 0.75rem;
+}
+
+.doctor-portal-patient-select {
+  min-width: 200px;
+  max-width: min(420px, 100%);
+}
+
+.doctor-portal-patient-meta {
+  margin-left: auto;
+}
+
+.doctor-portal-main {
+  padding-bottom: 0;
+}
+
+.doctor-shell-portal .doctor-patient-dock {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem 1.25rem;
+  margin-top: 0;
+}
+
+.doctor-shell-portal .doctor-patient-dock .notes-card,
+.doctor-shell-portal .doctor-patient-dock .prescription-card {
+  margin: 0;
+}
+
+/* Re-skin doctor workspace (dark) to patient-portal tokens inside portal shell */
+.doctor-portal-content.patient-portal .page,
+.doctor-portal-content.patient-portal .doctor-workspace-page,
+.doctor-portal-content.patient-portal .doctor-clinical-page {
+  color: var(--pt-text);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .card,
+.doctor-portal-content.patient-portal .doctor-clinical-page .card {
+  background: var(--pt-surface);
+  border: 1px solid var(--pt-border);
+  color: var(--pt-text);
+  box-shadow: 0 4px 16px rgba(13, 63, 173, 0.07);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page h1,
+.doctor-portal-content.patient-portal .doctor-clinical-page h1,
+.doctor-portal-content.patient-portal .doctor-workspace-page .card-title,
+.doctor-portal-content.patient-portal .doctor-clinical-page .card-title,
+.doctor-portal-content.patient-portal .doctor-workspace-page h2,
+.doctor-portal-content.patient-portal .doctor-clinical-page h2,
+.doctor-portal-content.patient-portal .doctor-workspace-page h3,
+.doctor-portal-content.patient-portal .doctor-clinical-page h3 {
+  color: var(--pt-text);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .muted,
+.doctor-portal-content.patient-portal .doctor-clinical-page .muted {
+  color: var(--pt-muted);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .data-table th,
+.doctor-portal-content.patient-portal .doctor-workspace-page .data-table td {
+  border-bottom-color: var(--pt-border);
+  color: var(--pt-text);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .data-table th {
+  background: var(--pt-primary-soft);
+  color: #234785;
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .tag-blue {
+  background: rgba(22, 93, 255, 0.12);
+  color: #165dff;
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .tag-gray {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .event-legend {
+  color: var(--pt-muted);
+}
+
+.doctor-portal-content.patient-portal .doctor-workspace-page .limb-canvas-host {
+  border-color: var(--pt-border);
+  background: #f8fafc;
+}
+
+.doctor-portal-content.patient-portal .doc-panel {
+  border: 1px solid var(--pt-border);
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  color: var(--pt-text);
+}
+
+.doctor-portal-content.patient-portal .doctor-clinical-page input,
+.doctor-portal-content.patient-portal .doctor-clinical-page select,
+.doctor-portal-content.patient-portal .doctor-clinical-page textarea {
+  border: 1px solid var(--pt-border);
+  background: #fff;
+  color: var(--pt-text);
+}
+
+.doctor-portal-content.patient-portal .doc-highlight {
+  background: rgba(22, 93, 255, 0.08);
+  border: 1px solid rgba(22, 93, 255, 0.22);
+  color: #1d2939;
+}
+
+.doctor-portal-content.patient-portal .risk-green {
+  background: rgba(18, 183, 106, 0.14);
+  color: #0f766e;
+}
+
+.doctor-portal-content.patient-portal .risk-yellow {
+  background: rgba(245, 158, 11, 0.16);
+  color: #b45309;
+}
+
+.doctor-portal-content.patient-portal .risk-red {
+  background: rgba(239, 68, 68, 0.14);
+  color: #b91c1c;
+}
+
+.doctor-portal-content.patient-portal .risk-orange {
+  background: rgba(249, 115, 22, 0.16);
+  color: #c2410c;
+}
+
+@media (max-width: 900px) {
+  .doctor-portal-patient-meta {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+

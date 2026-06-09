@@ -1,9 +1,3 @@
-# Sub-module repositories (each has its own GitHub remote, do not commit here)
-DSD2026-app-windows/
-dsd2026-teamv2/
-project-main-web/
-v1-motion-standard-curves/
-
 # Environment files (keep .env.example only)
 .env
 
@@ -24,6 +18,10 @@ docs/*.toc
 # IDE
 .vscode/
 .idea/
+
+# Speech scripts (presentation companion documents)
+docs/speech_script_cn.md
+docs/speech_script_en.md
 
 # OS
 Thumbs.db

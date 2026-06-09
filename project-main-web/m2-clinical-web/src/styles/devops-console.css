@@ -1,0 +1,412 @@
+.devops-console {
+  --dev-bg: #0a1222;
+  --dev-surface: rgba(15, 30, 56, 0.76);
+  --dev-border: rgba(95, 139, 196, 0.35);
+  --dev-text: #d7e6ff;
+  --dev-muted: #8ea7cc;
+  --dev-primary: #1a6dff;
+  --dev-cyan: #12c8ff;
+  --dev-danger: #ef4444;
+  --dev-warn: #f59e0b;
+  --dev-info: #38bdf8;
+  color: var(--dev-text);
+  font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+}
+
+.devops-console.devops-console .card {
+  background: var(--dev-surface);
+  border: 1px solid var(--dev-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(3, 9, 19, 0.35);
+  backdrop-filter: blur(6px);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.devops-console .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(4, 12, 27, 0.48);
+}
+
+/* Headings on dark glass cards */
+.devops-console .card-title,
+.devops-console .card > h2.card-title,
+.devops-console .devops-tabbar .card-title {
+  color: #edf4ff;
+}
+
+/* KPI tiles sit on dark .card panels — keep metrics light */
+.devops-console .portal-stat .stat-label {
+  color: var(--dev-muted);
+}
+
+.devops-console .portal-stat .stat-value {
+  color: #edf4ff;
+}
+
+.devops-console .portal-stat .stat-foot {
+  color: var(--dev-muted);
+}
+
+/* List row titles sit on white/light rows — use dark text */
+.devops-console .task-row .task-title,
+.devops-console .task-list .task-title,
+.devops-console .audit-log-list .task-title {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.applicant-name {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.devops-console .applicant-name {
+  color: #0f172a;
+}
+
+.devops-console .muted,
+.devops-console .small {
+  color: var(--dev-muted);
+}
+
+.devops-console .btn {
+  border-radius: 10px;
+}
+
+.devops-console .btn.primary {
+  background: linear-gradient(120deg, var(--dev-primary), var(--dev-cyan));
+  border-color: transparent;
+}
+
+.devops-console .btn.ghost {
+  background: rgba(14, 24, 44, 0.86);
+  border-color: rgba(105, 147, 205, 0.35);
+  color: #c8dcff;
+}
+
+.devops-hero {
+  background:
+    radial-gradient(circle at right top, rgba(24, 176, 255, 0.3), transparent 40%),
+    linear-gradient(125deg, #08101d 0%, #10274b 58%, #0a4f6e 100%);
+}
+
+.devops-console .hero-side {
+  min-width: 280px;
+}
+
+.devops-console .env-switches {
+  margin: 0.5rem 0 0.8rem;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.devops-alert-overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.alert-counters {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.alert-pill,
+.alert-tag {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.35rem 0.72rem;
+  font-weight: 700;
+}
+
+.alert-pill {
+  cursor: pointer;
+}
+
+.alert-pill.high,
+.alert-tag.high {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.alert-pill.medium,
+.alert-tag.medium {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fdd57e;
+}
+
+.alert-pill.low,
+.alert-tag.low {
+  background: rgba(56, 189, 248, 0.18);
+  color: #7dd3fc;
+}
+
+.devops-tabbar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.devops-tabbar .tab-right {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.devops-tabbar select,
+.devops-console input,
+.devops-console select {
+  background: #0c1b35;
+  border: 1px solid #2d4872;
+  border-radius: 8px;
+  color: #e2edff;
+  padding: 0.45rem 0.6rem;
+}
+
+.draggable-module {
+  cursor: move;
+}
+
+.ring-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.ring {
+  width: 72px;
+  height: 72px;
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(146, 172, 211, 0.24);
+  stroke-width: 8;
+}
+
+.ring-active {
+  fill: none;
+  stroke: #20c9ff;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  transition: stroke-dasharray 420ms ease;
+}
+
+.sparkline {
+  margin-top: 0.55rem;
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.sparkline span {
+  width: 8px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #40ccff, #1962fb);
+  animation: riseIn 400ms ease;
+}
+
+.alert-stack {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.55rem;
+}
+
+.resource-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 42px;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+}
+
+.resource-track {
+  border-radius: 999px;
+  height: 8px;
+  background: #1e3559;
+  overflow: hidden;
+}
+
+.resource-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #18c4ff, #2d7eff);
+  transition: width 460ms ease;
+}
+
+.big-actions .btn {
+  min-height: 44px;
+}
+
+.service-state {
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+}
+
+.svc-ok {
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+}
+
+.svc-warn {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+}
+
+.svc-bad {
+  background: rgba(239, 68, 68, 0.24);
+  color: #fca5a5;
+  animation: blinkWarn 1s step-end infinite;
+}
+
+.topology {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.65rem;
+}
+
+.topology-node {
+  padding: 0.7rem;
+  border: 1px solid #2f4d7a;
+  border-radius: 10px;
+  background: #112443;
+  text-align: center;
+}
+
+.topology-node.bad {
+  border-color: #f87171;
+  color: #fecaca;
+}
+
+.precheck-row.fail {
+  border-color: rgba(248, 113, 113, 0.5);
+  background: rgba(126, 24, 24, 0.3);
+}
+
+.fix-tip {
+  color: #fca5a5;
+}
+
+.check-state {
+  border-radius: 999px;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid transparent;
+}
+
+.check-state.idle {
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.check-state.running {
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.5);
+}
+
+.check-state.pass {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.4);
+}
+
+.check-state.fail {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.4);
+}
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(80px, 1fr));
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.pipeline-node {
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  background: #10213f;
+  border: 1px solid #2e4b76;
+  font-size: 0.82rem;
+}
+
+.pipeline-node.active {
+  background: linear-gradient(120deg, #1957ce, #17a4d4);
+  border-color: rgba(120, 204, 255, 0.5);
+  color: #f0f9ff;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.55rem 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.audit-list {
+  border: 1px solid #31507f;
+  border-radius: 10px;
+  background: #0b1a32;
+  padding: 0.75rem;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.audit-list p {
+  margin: 0 0 0.45rem;
+  font-size: 0.85rem;
+}
+
+@keyframes blinkWarn {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    transform: scaleY(0.5);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .devops-alert-overview {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .devops-tabbar .tab-right {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .pipeline {
+    grid-template-columns: 1fr;
+  }
+
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}

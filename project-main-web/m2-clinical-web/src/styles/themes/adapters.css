@@ -1,0 +1,47 @@
+.main-column {
+  background: var(--color-bg-page);
+}
+
+.top-bar,
+.card {
+  background: var(--color-bg-surface);
+  border-color: var(--color-border-default);
+}
+
+.page h1,
+.card-title,
+.stat-value {
+  color: var(--color-text-main);
+}
+
+.muted,
+.stat-label,
+.stat-foot {
+  color: var(--color-text-muted);
+}
+
+.sidebar {
+  background: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+}
+
+.nav-link {
+  color: var(--color-sidebar-link);
+}
+
+.btn.primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn.primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-text {
+  color: var(--color-primary);
+}
+
+.brand-mark {
+  background: linear-gradient(135deg, var(--color-info), var(--color-primary));
+}
